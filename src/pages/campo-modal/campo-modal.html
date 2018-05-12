@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title><span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span></ion-title>
+
+
+    <ion-buttons end>
+      <button ion-button icon-right color="dark" (click)="fechar()">
+        Fechar
+       
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <ion-searchbar   (ionInput)="getItems($event)" placeholder="Digite nome do local  "></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="campo-modal lightest-bg">
+ 
+<ion-card class="primary-bg" *ngIf="!this.isMenu  && !this.isMinhaConta">
+    <ion-card-content *ngIf="!listaCamposTemp || listaCamposTemp.length <= 0" >
+      <p class="text-white" text-justify ion-text>Digite o nome do <b>local onde seu clube</b> é mandante. </p>
+      
+      <p class="text-white" text-justify ion-text> Caso não encontre em nossa base de dados o <b>local</b> onde seu clube é mandante, 
+      clique abaixo no botão <b> Novo Local </b> para efetuar o cadastro desse nosso local. </p>
+
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" class="tet-white" (click)="habilitarNovoCadastro()" small>Novo Local</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+ 
+  <ion-card  *ngFor="let campo of listaCamposTemp"  >
+   
+
+    <div class="dark-bg">
+                <ion-row class="text-white">
+                    <ion-col col-12 class="fw700" text-center text-uppercase>
+                       {{campo.nome}}
+                    </ion-col>
+                </ion-row>
+            </div>
+
+    <ion-card-content> 
+      <!--<p ion-text color="primary" no-margin><b>CEP:</b> {{campo.cep}}</p>-->
+      <p ion-text color="primary" no-margin ><b>Endereço:</b> {{campo.endereco}}</p>
+      <p ion-text color="primary" no-margin ><b>Região:</b> {{campo.regiao}}</p>
+
+      <p ion-text color="primary" no-margin *ngIf="campo.tipo == 1"  ><b>Modalidade:</b> Campo</p>
+      <p ion-text color="primary" no-margin *ngIf="campo.tipo == 2"  ><b>Modalidade:</b> Futsal</p>
+      <p ion-text color="primary" no-margin *ngIf="campo.tipo == 3"  ><b>Modalidade:</b>  Society(Fut. 7)</p>
+      <!--<p ion-text color="primary" no-margin ><b>Mais Informa:</b> {{campo.regiao}}</p>-->
+      <!--<p ion-text color="primary" no-margin><b>Bairro:</b> {{campo.bairro}}</p>-->
+      <!--<p ion-text color="primary" no-margin><b>Cidade:</b> {{campo.cidade}} - {{campo.estado}}</p>-->
+    </ion-card-content>
+   
+            
+            <ion-row>
+              <ion-col col-12 no-padding center text-center>
+                    <button type="button" ion-button icon-start outline color="dark" small 
+                    (click)="selecionarCampos(campo)" >
+                            <ion-icon name="share"></ion-icon>
+                                Selecionar
+                            </button> 
+                </ion-col>
+            </ion-row>
+  </ion-card>
+
+
+
+
+  <!-- CADASTRO DE CAMPO NOVO --> 
+
+   <ion-card *ngIf="habilitarCadastro" >
+    <ion-card-content>
+
+      <form [formGroup]="formCadastro" class="list-form">
+        <ion-list margin-bottom>
+
+          <h5 ion-text color="dark" margin-bottom class="fw500">Dados do Campo<span ion-text class="fw300"></span></h5>
+
+          <ion-item>
+            <ion-label stacked>Nome do Local:</ion-label>
+            <ion-input [(ngModel)]="campo.nome" color="dark-ionic" type="text"  placeholder="ex: CDC Varzea Brasil" name="nome" formControlName="nome">
+            </ion-input>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.nome.valid && formCadastro.controls.nome.touched">Obrigatório</p>
+
+           <ion-item>
+            <ion-label stacked>Endereço:</ion-label>
+            <ion-textarea  [(ngModel)]="campo.endereco" color="dark-ionic" type="text" name="endereco" formControlName="endereco">
+            </ion-textarea>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.endereco.valid && formCadastro.controls.endereco.touched">Obrigatório</p>
+          
+          <ion-item >
+            <ion-label stacked>Região (Obrigatório)</ion-label>
+            <ion-select [(ngModel)]="campo.regiao" name="regiao" formControlName="regiao" okText="Selecionar" cancelText="Cancelar" [class.invalid]="!formCadastro.controls.regiao.valid && formCadastro.controls.regiao.dirty">
+              <ion-option value="Zona Sul" checked="true">Zona Sul</ion-option>
+              <ion-option value="Zona Norte">Zona Norte</ion-option>
+              <ion-option value="Zona Leste">Zona Leste</ion-option>
+              <ion-option value="Zona Oeste">Zona Oeste</ion-option>
+              <ion-option value="Centro">Centro</ion-option>
+            </ion-select>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.regiao.valid && formCadastro.controls.regiao.touched">Obrigatório</p>
+
+           <ion-item>
+            <ion-label stacked>Referência:</ion-label>
+            <ion-textarea  placeholder="ex: Próximo da estacao de trem  ou próximo do mercado " [(ngModel)]="campo.referencia" color="dark-ionic" type="text" name="referencia" formControlName="referencia">
+            </ion-textarea>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.referencia.valid && formCadastro.controls.referencia.touched">Obrigatório</p>
+
+
+          </ion-list>
+      </form>
+
+            <ion-row no-padding>
+                  <ion-col col-12>
+                      <button ion-button type="button" color="dark" block   [disabled]="!formCadastro.valid" (click)= "save()">     
+                        Salvar      
+                      </button> 
+                  </ion-col>
+              </ion-row>
+
+    </ion-card-content>
+    </ion-card>
+
+</ion-content>

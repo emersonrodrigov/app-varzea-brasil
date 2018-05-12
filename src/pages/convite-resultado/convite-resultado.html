@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button menuToggle color="dark">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+
+  </ion-navbar>
+
+  <ion-toolbar>
+
+
+    <ion-searchbar (ionInput)="filterResultado()" [(ngModel)]="filtro"  color="secondary"  placeholder="Filtrar times"></ion-searchbar>
+  </ion-toolbar>
+
+
+
+</ion-header>
+
+<ion-content class="lightest-bg  convite-resultado">
+
+  <div padding-left padding-right class="support-info">
+    <h5>Clubes disponíveis para confronto</h5>
+  </div>
+
+  <ion-card class="primary-bg" *ngIf="this.isConviteEnviado">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Existem convites enviados nesta data. Acesse o menu <b> Convites Enviados</b>. </p>
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" class="tet-white" (click)="menuEnviados()" small>Acesse Já.</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="primary-bg" *ngIf="this.isConviteRecebido">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Existem convites recebidos nesta data. Acesse o menu <b> Convites Recebidos</b>.</p>
+
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" small (click)="menuRecebidos()">Acesse Já.</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <div padding-left padding-right class="support-info" *ngIf="listaTimes.lenght > 0">
+    <h5>Clubes disponiveis para confronto</h5>
+  </div>
+  <ion-card *ngFor="let item of listaTimes; let i = index">
+
+    <ion-card-header no-padding>
+      <ion-item color="primary">
+        <ion-avatar item-left>
+          <img src="{{item.imgEscudo}}">
+        </ion-avatar>
+        <h2> {{item.nome}}</h2>
+        <p *ngIf="item.flgMandante == 1">Mandante</p>
+        <p *ngIf="item.flgMandante == 2"> Visitante</p>
+        <p *ngIf="item.flgMandante == 3"> Madante e Visitante</p>
+       
+        
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content no-margin no-padding>
+
+      <ion-item>
+        <p text-nowrap *ngIf="item?.campo && item.flgMandante != 2"> Campo: {{item?.campo?.nome}}</p>
+
+        <p *ngIf="item.diaJogo && item?.diaJogo == 1">Dia de Jogo: Domingo</p>
+        <p *ngIf="item.diaJogo && item?.diaJogo == 2">Dia de Jogo: Segunda</p>
+        <p *ngIf="item.diaJogo && item?.diaJogo == 3">Dia de Jogo: Terça</p>
+        <p *ngIf="item.diaJogo && item?.diaJogo == 4">Dia de Jogo: Quarta</p>
+        <p *ngIf="item.diaJogo && item?.diaJogo == 5">Dia de Jogo: Quinta</p>
+        <p *ngIf="item.diaJogo && item?.diaJogo == 6">Dia de Jogo: Sexta</p>
+        <p *ngIf="item.diaJogo && item?.diaJogo == 7">Dia de Jogo: Sábado</p>
+
+
+        <p *ngIf="item.horaInicioJogo && item.horaFimJogo">Horário: {{item.horaInicioJogo}} ás {{item.horaFimJogo}}</p>
+        <p>Amistoso(R$): 30,00 </p>
+        <p>Festival(R$): 90,00</p>
+        <p> {{item.bairro}} / {{item.cidade}}</p>
+        <p>Região: {{item.regiao}}</p>
+        <button ion-button item-end icon-left (click)="convidar(item,i)">
+                <ion-icon name="mail"></ion-icon>
+          Convidar</button>
+      </ion-item>
+    </ion-card-content>
+
+  </ion-card>
+
+
+
+
+</ion-content>

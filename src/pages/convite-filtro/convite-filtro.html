@@ -1,0 +1,171 @@
+
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+        <ion-title>
+            <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+        </ion-title>
+
+        <!--<ion-buttons end>
+      <button ion-button icon-only (click)="cadatrar()" color="dark">         
+                <ion-icon name="ios-create-outline"></ion-icon>          
+          </button>
+    </ion-buttons>-->
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="lightest-bg convite-filtro">
+    <form [formGroup]="formCadastro">
+
+        <div padding-left padding-right class="support-info">
+            <h5>Pesquisar clubes para confronto</h5>
+        </div>
+
+
+        <ion-grid no-padding>
+            <ion-row class="text-black" center>
+                <ion-col col-12 class="text-dark fw300 ">Selecione a data que deseja marcar o confornto!</ion-col>
+            </ion-row>
+
+        </ion-grid>
+        <ion-card>
+            <ion-row justify-content-between class="lightest-bg">
+                <ion-col col-3 text-left (click)="goToLastMonth()">
+                    <span ion-text color="danger"> Anterior</span>
+                </ion-col>
+                <ion-col col-3 text-right (click)="goToNextMonth()">
+                    <span ion-text color="danger"> Próximo</span>
+                </ion-col>
+            </ion-row>
+            <div class="dark-bg">
+
+                <ion-row class="calendar-month text-white" no-padding no-margin center>
+                    <ion-col col-2 class="fw700  btn-gplus" (click)="goToLastMonth()" no-padding no-margin>
+
+                        <button ion-button full icon-only small color="danger">
+                            <ion-icon name="md-arrow-round-back"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col col-8 class="fw700" center text-center>{{currentMonth}} {{currentYear}}</ion-col>
+                    <ion-col col-2 class="fw700 btn-gplus" color="danger" no-margin no-padding (click)="goToNextMonth()">
+
+
+                        <button ion-button full icon-only small color="danger">
+                            <ion-icon name="md-arrow-round-forward"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div class="calendar-body">
+                <ion-grid>
+                    <ion-row class="primary-bg text-white fw700">
+                        <ion-col>Dom</ion-col>
+                        <ion-col>Seg</ion-col>
+                        <ion-col>Ter</ion-col>
+                        <ion-col>Qua</ion-col>
+                        <ion-col>Qui</ion-col>
+                        <ion-col>Sex</ion-col>
+                        <ion-col>Sab</ion-col>
+                    </ion-row>
+
+                    <ion-row class="calendar-date" no-padding>
+                        <ion-col col-1 *ngFor="let lastDay of daysInLastMonth" class="last-month">
+                            {{lastDay}}
+                        </ion-col>
+
+                        <ion-col col-1 *ngFor="let day of daysInThisMonth" (click)="selecioneData(day)" no-padding>
+                            <div class="dataDisponivel" *ngIf="checkDiasDisponiveis(day) && !checkDiaConfronto(day) && !checkDiaAnterior(day) ;"> {{day}}</div>
+                            <div class="currentDate" *ngIf="checkDiaAnterior(day) && checkDiasDisponiveis(day) && !checkDiaConfronto(day);"> {{day}}</div>
+                            <div class="confrontoMarcado" *ngIf="checkDiaConfronto(day);"> {{day}}</div>
+                            <div *ngIf="!checkDiaConfronto(day) && !checkDiasDisponiveis(day);"> {{day}}</div>
+                        </ion-col>
+                        <ion-col col-1 *ngFor="let nextDay of daysInNextMonth" class="next-month">
+                            {{nextDay}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+            <ion-list calendar-date>
+                <ion-item>
+                    <ion-label stacked color="dark" stacked>Data da Partida Selecionada</ion-label>
+                    <ion-datetime required displayFormat="DD/MM/YYYY - DDDD" pickerFormat="DD MM YYYY DDDD" min="{{anoMinimo}}" max="{{anoMaximo}}"
+                        name="dataPartida" formControlName="dataPartida" [(ngModel)]="convite.dataPartida" (ngModelChange)="getDiaSemana()"></ion-datetime>
+                </ion-item>
+                <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.dataPartida.valid && formCadastro.controls.dataPartida.dirty">Obrigatório</p>
+
+                <p ion-text color="danger" class="text-1x has-error" *ngIf="convite.dataPartida && !isFlagValidaDiaSemana">Seu clube nao joga neste dia.</p>
+
+                <p ion-text color="danger" class="text-1x has-error" *ngIf="convite.dataPartida && !isValidaData">Data da partida deve ser maior que data do dia. </p>
+
+                <p ion-text color="danger" class="text-1x has-error" *ngIf="convite.dataPartida &&isJogoMarcado">Já existe jogo marcado nesta data. </p>
+
+            </ion-list>
+
+
+
+            <ion-row no-padding>
+                <ion-col col-12>
+                    <button ion-button type="submit" color="dark" block (click)="pesquisar()" [disabled]="!formCadastro.valid || !isFlagValidaDiaSemana || !isValidaData || isJogoMarcado">     
+                          Pesquisar      
+                        </button>
+
+                </ion-col>
+            </ion-row>
+        </ion-card>
+
+
+        <ion-grid>
+            <ion-row class="text-black" center>
+                <ion-col col-12 class="text-black fw500">Legenda</ion-col>
+            </ion-row>
+            <ion-row class="text-black">
+                <ion-col col-6 class="dark-bg text-white fw700">Jogo Agendado</ion-col>
+                <ion-col col-6 class="bg-disponivel fw700">Data disponível</ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-card class="primary-bg">
+
+            <div class="primary-bg">
+                <ion-row class="calendar-month text-white">
+                    <ion-col col-12 class="fw700" (click)="goToLastMonth()">Dados do seu clube</ion-col>
+                </ion-row>
+            </div>
+            <ion-card-content no-padding>
+                <ion-item>
+                    <ion-avatar item-start *ngIf="false">
+                        <img src="{{clube?.imgEscudo}}">
+                    </ion-avatar>
+                    <h2>{{clube?.nome}}</h2>
+                    <p>{{clube?.bairro}} - {{clube?.regiao}}</p>
+                    <!--dia do jogo -->
+                    <p *ngIf="clube?.diaJogo == 0">Dia de Jogo: Domingo</p>
+                    <p *ngIf="clube?.diaJogo == 1">Dia de Jogo: Segunda</p>
+                    <p *ngIf="clube?.diaJogo == 2">Dia de Jogo: Terça</p>
+                    <p *ngIf="clube?.diaJogo == 3">Dia de Jogo: Quarta</p>
+                    <p *ngIf="clube?.diaJogo == 4">Dia de Jogo: Quinta</p>
+                    <p *ngIf="clube?.diaJogo == 5">Dia de Jogo: Sexta</p>
+                    <p *ngIf="clube?.diaJogo == 6">Dia de Jogo: Sábado</p>
+
+                    <!-- flag mandante -->
+                    <p *ngIf="clube?.flgMandante == 1">Mandante</p>
+                    <p *ngIf="clube?.flgMandante == 2">Visitante</p>
+                    <p *ngIf="clube?.flgMandante == 3">Visitante e Mandante</p>
+
+                    <p *ngIf="clube?.flgMandante != 2"> Hórario: {{clube?.horaInicioJogo}} às {{clube?.horaFimJogo}} </p>
+                    <p *ngIf="clube?.flgMandante != 2">Campo: {{clube?.campo.nome}}</p>
+
+
+                    <button ion-button item-end (click)="alterarDadosClube()">Alterar</button>
+                </ion-item>
+            </ion-card-content>
+            
+        </ion-card>
+    </form>
+
+
+
+
+</ion-content>

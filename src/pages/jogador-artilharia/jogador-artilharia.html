@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+ 
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="lightest-bg jogador-lista">
+
+
+  <div padding-left padding-right class="support-info">
+    <h3 >Artilharia</h3>
+  </div>
+
+
+
+
+<ion-card class="primary-bg" *ngIf="!this.isCadastroJogadores">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Para controlar <b>ARTILHARIA</b> é necessário  fazer o cadastramento de seus jogadores. </p>
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" class="tet-white" (click)="acessarElenco()" small>Acesse Já.</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="primary-bg" *ngIf="!this.isCadastroJogadoresCompleto">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Cadastro do seu elenco está incompleto. É importante cadastrar todos os seus jogadores. </p>
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" class="tet-white" (click)="acessarElenco()" small>Acesse Já.</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-grid >
+    <ion-row justify-content-between>
+      <ion-col col-4 text-center>
+       <span ion-text color="dark" class="fw700 fonte-cabecalho">  Jogadores </span>
+        </ion-col>  
+        <ion-col col-2 text-left>
+          <span ion-text color="dark" class="fw700 fonte-cabecalho"> Gols </span>
+        </ion-col>  
+    </ion-row>   
+  </ion-grid> 
+  <ion-card *ngFor="let item of listaArtilhariaTemp | sort: {property: column, order: order} ; let last = last " >
+    {{callBackOrdenar(last)}}
+    <ion-list>
+      <ion-item>
+            <ion-avatar item-left class="imgFoto">
+              <!--<img-loader src="{{item.imgFoto}}" useImg></img-loader>-->
+              <img src="{{item.jogador.imgFoto}}">
+
+            </ion-avatar>
+            <h2>{{item.jogador.nome}}</h2>
+            <p>Posição: {{item.jogador.posicao}}</p>
+            <p>Nº: {{item.jogador.camisa}}</p>
+            <p text-wrap *ngIf="item.isAcesso == 'N'">Acesso: {{item.codigoAcesso}}</p>
+            <p text-wrap *ngIf="item.isAcesso == 'S'">Já acessou</p> 
+          <ion-badge item-end>{{item.gols}}</ion-badge> 
+      </ion-item>
+    </ion-list> 
+  </ion-card>
+
+</ion-content>

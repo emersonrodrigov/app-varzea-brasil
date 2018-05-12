@@ -1,0 +1,28 @@
+.campo-modal{
+
+.md,
+.wp {
+  .support-info [text-right] {
+    margin-right: 0;
+  }
+}
+
+.ios .support-info ion-icon {
+  width: auto;
+  margin-right: 10px;
+}
+
+	.item {
+		padding-left: 0;
+		&.item-block {
+			.item-inner {
+			  border-style: solid;
+			  border-width: 1px;
+			  border-color: transparent;
+			  border-bottom-color: rgba(44, 167, 148, .2);
+			}
+		}
+	}
+
+
+}

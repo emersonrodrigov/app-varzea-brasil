@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title><span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span></ion-title>
+
+    <ion-buttons end *ngIf="!isDetalhe">
+      <button ion-button icon-right color="dark" (click)="visualizarAnuncio()">
+        Publicar
+      <ion-icon name="share"></ion-icon> 
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="lightest-bg">
+
+  <div padding-left padding-right class="support-info">
+    <h3>Banner Campeonato</h3>
+  </div>
+
+  <ion-card class="primary-bg" *ngIf="!isDetalhe">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Banner será divulgado desta forma para <b> todos os times.</b></p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <img src="{{campeonato.imgCampeonato}}" />
+    <ion-card-content>
+      <h2 ion-text color="dark" class="card-title">{{campeonato.nome}}</h2>
+      <p ion-text color="primary">Data Inicio: {{campeonato.dataInicio | date: 'dd/MM/yyyy'}}</p>
+    </ion-card-content>
+    <ion-list>
+
+      <ion-item>
+        <ion-icon item-left name="trophy"></ion-icon>
+        <h3>1º Prêmio</h3>
+        <ion-note item-right>{{campeonato.primerioPremio}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon item-left name="trophy"></ion-icon>
+        <h3>2º Prêmio</h3>
+        <ion-note item-right>{{campeonato.segundoPremio}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon item-left name="trophy"></ion-icon>
+        <h3>3º Prêmio</h3>
+        <ion-note item-right>{{campeonato.terceirorPemio}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon item-left name="trophy"></ion-icon>
+        <h3>Outros Prêmios</h3>
+        <p>{{campeonato.outrosPremios}}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon item-left name="call"></ion-icon>
+        <h4>{{campeonato.nomeContato}}</h4>
+        <p>{{campeonato.telefoneContato}}</p>
+      </ion-item>
+
+      <!--
+      <button ion-item (click)="openBrokerDetail(property.broker)">
+                <ion-avatar item-left>
+                    <img src="{{property.broker.picture}}"/>
+                </ion-avatar>
+                <h2>{{property.broker.name}}</h2>
+                <p>{{property.broker.title}}</p>
+            </button>-->
+
+      <ion-item>
+        <p item-left>Num. Equipes: {{campeonato.qtdEquipe}}</p>
+        <p item-right>Vagas Dispníveis: 0</p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>
+
+
+
+
+<!--<ion-header>
+
+
+  <ion-navbar dark color="dark">
+    <ion-buttons start>
+      <button ion-button menuToggle color="secondary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+
+
+     <ion-buttons end *ngIf="!isDetalhe">
+      <button ion-button icon-right color="secondary" (click)="visualizarAnuncio()">
+        Publicar
+      <ion-icon name="share"></ion-icon> 
+    </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content  class="lightest-bg">
+  <ion-list-header class="titulo-header-list" text-wrap center no-lines text-center *ngIf="!isDetalhe" >
+    Banner será divulgado desta forma para todos os times
+    
+  </ion-list-header>
+  <ion-card>
+    <ion-item text-wrap color="dark" center text-justify>
+      <h2 text-center text-wrap >{{campeonato.nome}}</h2>
+      <p text-center  text-wrap secondary>Data Inicio: {{campeonato.dataInicio | date: 'dd/MM/yyyy'}}</p>
+    </ion-item>
+
+    <img src="{{campeonato.imgCampeonato}}" />
+
+    <ion-fab right top *ngIf="false">
+      <button ion-fab>
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </ion-fab>
+ 
+    <ion-item color="light">
+      <ion-icon name="logo-usd" item-start large ></ion-icon>
+  <ion-row>
+    <ion-col col-6><p>Inscrição</p></ion-col>
+    <ion-col col-6><p>Arbitragem</p></ion-col>
+  </ion-row> 
+  <ion-row> 
+    <ion-col col-6><p>{{campeonato.valorInscricao}}</p></ion-col>
+    <ion-col col-6><p> {{campeonato.taxaArbitagem}} </p></ion-col>
+  </ion-row> 
+
+ 
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="trophy" item-start large></ion-icon>
+      <h4>Premiações</h4>
+      <p>1º - {{campeonato.primerioPremio}} </p>
+      <p>2º - {{campeonato.segundoPremio}}</p>
+      <p> 3º - {{campeonato.terceiroPremio}}</p>
+       <p text-wrap>{{campeonato.outrosPremios}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="call" item-left large></ion-icon>
+      <h4>{{campeonato.nomeContato}}</h4>
+      <p>{{campeonato.telefoneContato}}</p>
+    </ion-item>
+
+    <ion-item>
+      <p item-left>Num. Equipes: {{campeonato.qtdEquipe}}</p> 
+        <p item-right>Num. Vagas: 0</p>
+    </ion-item> 
+
+  </ion-card> 
+
+
+</ion-content>-->

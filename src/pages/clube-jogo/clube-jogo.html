@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button menuToggle color="primary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+
+    <ion-title><span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span></ion-title>
+
+
+    <ion-buttons end *ngIf="!isOrigemConfronto && !isMinhaConta" >
+      <button ion-button icon-right color="primary" (click)="proximaEtapa()" [disabled]="!formCadastro.valid">
+        Próximo
+      <ion-icon name="arrow-forward"></ion-icon> 
+    </button>
+    </ion-buttons>
+
+     <ion-buttons end *ngIf="isOrigemConfronto || isMinhaConta" >
+      <button ion-button icon-right color="primary" (click)="alterar()" [disabled]="!formCadastro.valid">
+        Alterar
+      <ion-icon name="done-all"></ion-icon> 
+    </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content class="clubecadastro lightest-bg">
+  <div padding-left padding-right class="support-info">
+    <h3>Dados da Partida</h3>
+  </div>
+  <ion-card class="primary-bg">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>
+        Informe tudo sobre sua partida, essas informações são importantes para marcar novos confrontos.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+
+      <form [formGroup]="formCadastro" class="list-form">
+
+        <ion-list margin-bottom no-lines>
+          <ion-item>
+            <ion-label stacked>Mandante ou Visitante</ion-label>
+            <ion-select [(ngModel)]="time.flgMandante" name="flgMandante" formControlName="flgMandante" okText="Selecionar" cancelText="Cancelar"
+              (ionChange)="onChangeCampoSelecionado()">
+              <ion-option value="1">Mandante</ion-option>
+              <ion-option value="2">Visitate</ion-option>
+              <ion-option value="3">Mandante e Visitante</ion-option>
+            </ion-select>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.flgMandante.valid && formCadastro.controls.flgMandante.touched">Obrigatório</p>
+
+          <ion-item>
+            <ion-label stacked>Modalidade </ion-label>
+            <ion-select [(ngModel)]="time.tipo" name="tipo" formControlName="tipo" okText="Selecionar" cancelText="Cancelar" (ionChange)="onChangeModalidade()"
+              [class.invalid]="!formCadastro.controls.tipo.valid && formCadastro.controls.tipo.dirty">
+              <ion-option value="1">Campo</ion-option>
+              <ion-option value="2">Futsal</ion-option>
+              <ion-option value="3">Society(Fut. 7) </ion-option>
+              <!--<ion-option value="4">Areia</ion-option>-->
+            </ion-select>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.tipo.valid && formCadastro.controls.tipo.touched">Obrigatório</p>
+          <ion-item > 
+            <ion-label stacked>Dia do Jogo</ion-label>
+            <ion-select [(ngModel)]="time.diaJogo" name="diaSemana" formControlName="diaSemana" okText="Selecionar" cancelText="Cancelar"
+              [class.invalid]="!formCadastro.controls.diaSemana.valid && formCadastro.controls.diaSemana.dirty">
+              <ion-option value="0" checked="true">Domingo</ion-option>
+              <ion-option value="1">Segunda-feira</ion-option>
+              <ion-option value="2">Terça-feira</ion-option>
+              <ion-option value="3">Quarta-feira</ion-option>
+              <ion-option value="4">Quinta-feira</ion-option>
+              <ion-option value="5">Sexta-feira</ion-option>
+              <ion-option value="6">Sábado</ion-option>
+            </ion-select>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.diaSemana.valid && formCadastro.controls.diaSemana.touched">Obrigatório</p>
+
+
+
+          <ion-item [class.error]='!formCadastro.controls.horaInicioJogo.valid && formCadastro.controls.horaInicioJogo.dirty' *ngIf="time.flgMandante != 2">
+            <ion-label stacked>Hora Inicio:</ion-label>
+
+            <ion-datetime displayFormat="H:mm" pickerFormat="H mm" [(ngModel)]="time.horaInicioJogo" name="horaInicioJogo" formControlName="horaInicioJogo"></ion-datetime>
+          </ion-item>
+
+          <ion-item [class.error]='!formCadastro.controls.horaFimJogo.valid && formCadastro.controls.horaFimJogo.dirty' *ngIf="time.flgMandante != 2">
+            <ion-label stacked>Hora Fim:</ion-label>
+
+            <ion-datetime displayFormat="H:mm" pickerFormat="H mm" [(ngModel)]="time.horaFimJogo" name="horaFimJogo" formControlName="horaFimJogo"></ion-datetime>
+          </ion-item>
+
+
+          <ion-item [class.error]='!formCadastro.controls.valorAmistoso.valid && formCadastro.controls.valorAmistoso.dirty'
+               *ngIf="time.flgMandante != 2">
+            <ion-label stacked>Valor Amistoso:</ion-label> 
+
+            <ion-input   type="tel" [(ngModel)]="time.valorAmistoso " name="valorAmistoso" formControlName="valorAmistoso"
+              [brmasker]="{money: true}"  placeholder="R$ 0.00"></ion-input>
+          </ion-item>
+
+          <ion-item [class.error]='!formCadastro.controls.valorFestival.valid && formCadastro.controls.valorFestival.dirty' 
+                  *ngIf="time.flgMandante != 2">
+            <ion-label stacked>Valor Festival:</ion-label>
+
+            <ion-input   [brmasker]="{money: true}"   type="tel" [(ngModel)]="time.valorFestival"   placeholder="R$ 0.00"
+                         name="valorFestival" formControlName="valorFestival"></ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label> 2 Quadros</ion-label>
+            <ion-toggle    [(ngModel)]="time.isDoisQuadro" name="doisQuadro" formControlName="doisQuadro" ></ion-toggle>
+          </ion-item>
+
+
+
+
+
+          <ion-item  [class.error]='!formCadastro.controls.campo.valid && formCadastro.controls.campo.dirty' *ngIf="nomeCampo != '' && nomeCampo !== undefined">
+            <ion-label stacked>Campo:</ion-label>
+            <ion-input [(ngModel)]="nomeCampo" readonly type="text" name="campo" formControlName="campo">
+            </ion-input>
+          </ion-item>
+
+          <ion-row text-center>
+            <ion-col col-12 center>
+              <button ion-button block color="dark" center *ngIf="time.flgMandante  && time.flgMandante != 2 && nomeCampo == '' " (click)="presentModal()">Selecionar Local</button>
+
+              <button ion-button block color="dark" center *ngIf="nomeCampo != ''" (click)="presentModal()">Alterar Local</button>
+            </ion-col>
+          </ion-row>
+
+        </ion-list>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

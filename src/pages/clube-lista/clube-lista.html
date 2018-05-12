@@ -1,0 +1,61 @@
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+
+     
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="lightest-bg  ">
+      <div padding-left padding-right class="support-info">
+    <h3 ion-text  >Clubes Inscritos</h3>
+  </div>
+ 
+  <ion-list >
+    <ion-card *ngFor="let item of clubesInscritos" >
+    <ion-item >
+      <ion-avatar item-left>
+
+        <!--<img-loader src="{{item.imgFoto}}" useImg></img-loader>-->
+        <img src="{{item.imgEscudo}}" useImg>
+
+      </ion-avatar>
+      <h2 ion-text class="text-dark" >{{item.nome}}</h2>
+
+    </ion-item>
+
+    <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-4 no-padding>
+        <button ion-button full small no-margin icon-left color="primary" (click)="participarCampeonato(campeonato)">
+          <ion-icon name="log-in"></ion-icon>
+          Elenco
+        </button>
+      </ion-col>
+      <ion-col col-4 > 
+        <button ion-button full small no-margin icon-left color="primary" (click)="visualizarAnuncio(campeonato)">
+          <ion-icon name="information"></ion-icon>
+          Jogos
+        </button>
+      </ion-col>
+
+      <ion-col col-4 > 
+        <button ion-button full small no-margin  icon-left color="primary" (click)="visualizarAnuncio(campeonato)">
+          <ion-icon name="e-mail"></ion-icon>
+          Mensagem
+        </button>
+      </ion-col>
+       
+    </ion-row>
+  </ion-grid>
+</ion-card>
+  </ion-list>
+
+</ion-content>

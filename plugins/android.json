@@ -1,0 +1,77 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "de.appplant.cordova.plugin.local-notification": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-ionic": {
+      "APP_ID": "621e54a1",
+      "CHANNEL_NAME": "Production",
+      "WARN_DEBUG": "true",
+      "UPDATE_API": "https://api.ionicjs.com",
+      "UPDATE_METHOD": "background",
+      "MAX_STORE": "2",
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-calendar": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "phonegap-plugin-push": {
+      "FCM_VERSION": "11.6.2",
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-fcm": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "phonegap-plugin-local-notification": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "com.darktalker.cordova.screenshot": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-app-event": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.ionicframework.ionproperty"
+    }
+  }
+}

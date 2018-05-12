@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content class="lightest-bg">
+  <div padding-left padding-right class="support-info">
+    <h3 ion-text>Convites Enviados</h3>
+  </div>
+
+
+<ion-card class="primary-bg" *ngIf="!isExisteConvite">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Clube não enviou nenhum convite para confronto. 
+        Acesse o menu <b> Encontrar Time </b> e marque seu jogo. </p>
+      
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-list>
+    <div *ngFor="let item of listaClubesEnviados; let i = index" >
+          <ion-col col-12 *ngIf="i==0 || item.dataPartidaConvite != listaClubesEnviados[i-1].dataPartidaConvite" no-padding>
+            <h6 no-padding ion-text text-center color="dark" class="main-styled-border-confronto">{{item.dataPartidaConvite  | date: "dd/MM/yyyy"}}</h6>
+          </ion-col>
+
+      <ion-card  class="card-img-wrap" no-padding>
+
+            <span ion-text class="card-img-status sale fw300 text-white recusado" *ngIf="item.statusConvite==3" >
+              Recusado
+            </span>
+             <span ion-text class="card-img-status sale fw300 text-white recusado" *ngIf="item.statusConvite==4" >
+              Cancelado
+            </span>
+
+            <span ion-text class="card-img-status sale fw300 text-white aceito"  *ngIf="item.statusConvite==2" >
+              Aceito
+            </span>
+
+            <span ion-text class="card-img-status sale fw300 text-black aguardando"  *ngIf="item.statusConvite==1" >
+              Aguardando
+            </span>
+        <ion-card-content no-padding>
+          <ion-item >
+            <ion-avatar item-left>
+              <!--<img-loader src="{{item.imgFoto}}" useImg></img-loader>-->
+              <img src="{{item.imgEscudo}}">
+            </ion-avatar>
+           
+            <h3 ion-text class="text-dark">{{item.nome}}</h3>
+            <p *ngIf="item.flgMandante == 1">Mandante</p>
+            <p *ngIf="item.flgMandante == 2"> Visitante</p>
+            <p *ngIf="item.flgMandante == 3"> Madante e Visitante</p>
+            <p *ngIf="item.horaInicioJogo && item.horaFimJogo">Horário: {{item.horaInicioJogo}} ás {{item.horaFimJogo}}</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 1">Dia de Jogo: Domingo</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 2">Dia de Jogo: Segunda</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 3">Dia de Jogo: Terça</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 4">Dia de Jogo: Quarta</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 5">Dia de Jogo: Quinta</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 6">Dia de Jogo: Sexta</p>
+            <p *ngIf="item.diaJogo && item?.diaJogo == 7">Dia de Jogo: Sábado</p>
+            <p >{{item.bairro}} / {{item.regiao}}</p>
+            <p *ngIf="item?.flgMandante != 2">Campo: {{item?.campo.nome}}</p>
+
+          </ion-item>
+          <ion-grid no-padding *ngIf="item.motivoCancelamento" >
+              <ion-row justify-content-center>
+                  <ion-col col-12 class="text-danger" text-center>
+                      <span ion-text color="danger" class="fw700" >Motivo: </span><span ion-text color="danger" class="fw300">{{item.motivoCancelamento}}</span>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-list>
+
+   <!--<ion-card class="primary-degrade-bg" *ngIf="listaClubesEnviados.length == 0">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Nenhum convite enviado. Acesse o menu <b> Marcar Jogos</b>.</p>
+
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" small (click)="marcarJogos()">Acesse Já.</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>-->
+
+</ion-content>

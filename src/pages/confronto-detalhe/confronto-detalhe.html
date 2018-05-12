@@ -1,0 +1,152 @@
+<ion-header>
+    <ion-navbar>
+
+        <ion-title>
+            <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+        </ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content class="lightest-bg confronto-detalhe">
+
+    <div padding-left padding-right class="support-info">
+        <h3 ion-text>Detalhe do Jogo</h3>
+    </div>
+
+
+    <form>
+
+        <ion-grid>
+            <ion-row no-padding center no-margin>
+                <ion-col text-nowrap col-6 class="primary-bg" no-margin align-items-center>
+
+                    <ion-item color="primary">
+                        <!--<ion-avatar item-right>
+                            <img [src]="confrontoSelecionado.clubeMandante.imgEscudo" />
+                        </ion-avatar>-->
+                        <p text-wrap>{{confrontoSelecionado.clubeMandante.nome}}</p>
+                    </ion-item>
+
+                </ion-col>
+
+                <ion-col col-6 class="primary-bg" no-margin center text-center align-items-center text-nowrap>
+
+                    <ion-item color="primary">
+                        <!--<ion-avatar item-left>
+                            <img [src]="confrontoSelecionado.clubeVisitante.imgEscudo" />
+                        </ion-avatar>-->
+                        <p>{{confrontoSelecionado.clubeVisitante.nome}}</p>
+                    </ion-item>
+
+                </ion-col>
+            </ion-row>
+
+            <!--SE O CONFRONTO FOI REALIZADO -->
+            <ion-row class='dark-bg' no-padding *ngIf="confrontoSelecionado.realizado" align-self-start>
+                <ion-col class="text-white" text-center col-5 text-center  >
+                    <ion-toolbar color="dark" no-padding>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col col-12 no-margin no-padding>
+                                    <ion-item>
+                                        <ion-input placeholder="Placar" type="tel" text-right name=˜resultadoMandante˜ [(ngModel)]='confrontoSelecionado.resultadoMandante'></ion-input>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-input placeholder="Placar" type="tel" text-right name=˜resultadoMandante˜ [(ngModel)]='confrontoSelecionado.resultadoMandante2'></ion-input>
+                                    </ion-item>
+                                    <p  class="text-dark light-bg" *ngIf="confrontoSelecionado.confirmaResultMandante">Confirmado</p>
+                                </ion-col>
+
+                            </ion-row>
+                        </ion-grid>
+                    </ion-toolbar>
+                </ion-col>
+                <ion-col class="text-white" col-2 text-center align-self-center>
+                    <ion-icon name="md-close"></ion-icon>
+                </ion-col>
+                <ion-col class="text-white" text-center col-5 text-center  >
+                    <ion-toolbar color="dark" no-padding>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col col-12 no-margin no-padding>
+                                    <ion-item>
+                                        <ion-input type="tel" placeholder="Placar" text-left name=˜resultadoVisitante˜ [(ngModel)]='confrontoSelecionado.resultadoVisitante'></ion-input>
+                                    </ion-item>
+                                     <ion-item>
+                                        <ion-input type="tel" placeholder="Placar" text-left name=˜resultadoVisitante˜ [(ngModel)]='confrontoSelecionado.resultadoVisitante2'></ion-input>
+                                    </ion-item>
+                                    <p  class="text-dark light-bg" *ngIf="confrontoSelecionado.confirmaResultVisitante">Confirmado</p>
+                                </ion-col>
+
+                            </ion-row>
+                        </ion-grid>
+                    </ion-toolbar>
+
+                </ion-col>
+                <ion-col col-12 no-padding center text-center>
+
+                    <button type="button" ion-button icon-start outline color="light" small (click)="confirmarPlacar() " *ngIf="!verificaPlacarIConfirmado() && !verificaExpirouDateLimite()">
+                            <ion-icon name="photos"></ion-icon>
+                                Confirmar Resultado
+                            </button> 
+
+                    <button type="button" ion-button icon-start outline color="light" small (click)="reverPlacar()" *ngIf="verificaPlacarIConfirmado() && !verificaExpirouDateLimite()">
+                            <ion-icon name="photos"></ion-icon>
+                                Rever Placar
+                            </button>
+                </ion-col>
+            </ion-row>
+
+
+
+
+            <!--SE O CONFRONTO FOI REALIZADO -->
+            <ion-card class="primary-bg" *ngIf="confrontoSelecionado.realizado">
+                <ion-card-content>
+                    <p class="text-white" text-justify ion-text>
+                        Após confirmar o resultado da partida. Selecione o <span ion-text class="fw700 text-white">JOGADOR DO SEU TIME</span>                        para informar gols, cartões e destaque da partida. É muito importante informar oque aconteceu no
+                        jogo !
+                    </p>
+                </ion-card-content>
+            </ion-card>
+
+
+            <ion-row no-padding center>
+                <ion-col text-wrap col-6>
+                    <ion-list width-50 style="vertical-align: top">
+                        <ion-item text-right *ngFor="let item of confrontoSelecionado.clubeMandante.jogadores;let i = index" (tap)="openMenu(true,i,confrontoSelecionado.clubeMandante)">
+                            <h2>{{item.nome}}</h2>
+                            <p>{{item.posicao}}</p>
+                            <ion-icon name="document" color="bright" *ngIf="item?.dadosPartida?.cartaoAmarelo > 0"></ion-icon>
+                            <ion-icon name="document" color="danger" *ngIf="item?.dadosPartida?.cartaoVermelho > 0"></ion-icon>
+                            <ion-icon name="medal" color="secondary" *ngIf="item?.dadosPartida?.isMelhorJogador"></ion-icon>
+                            <ion-icon name="football" color="dark" *ngIf="item?.dadosPartida?.gol > 0"></ion-icon> <small *ngIf="item?.dadosPartida?.gol > 0">({{item.dadosPartida?.gol}})   </small>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+
+                <ion-col text-wrap col-6>
+                    <ion-list width-50>
+                        <ion-item text-left *ngFor="let item of confrontoSelecionado.clubeVisitante.jogadores;let i = index" (tap)="openMenu(false,i,confrontoSelecionado.clubeVisitante)">
+                            <h2>{{item.nome}}</h2>
+                            <p detail-none>{{item.posicao}} </p>
+                            <ion-icon name="document" color="bright" *ngIf="item?.dadosPartida?.cartaoAmarelo > 0"></ion-icon>
+                            <ion-icon name="document" color="danger" *ngIf="item?.dadosPartida?.cartaoVermelho > 0"></ion-icon>
+                            <ion-icon name="medal" color="secondary" *ngIf="item?.dadosPartida?.isMelhorJogador"></ion-icon>
+                            <ion-icon name="football" color="dark" *ngIf="item?.dadosPartida?.gol > 0"></ion-icon> <small *ngIf="item?.dadosPartida?.gol > 0">({{item?.dadosPartida?.gol}})   </small>
+                        </ion-item>
+
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+
+
+        </ion-grid>
+    </form>
+
+
+
+
+</ion-content>

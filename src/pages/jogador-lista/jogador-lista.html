@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cadatrar()" color="dark">         
+                <ion-icon name="md-person-add"></ion-icon>          
+          </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="lightest-bg jogador-lista">
+
+
+  <div padding-left padding-right class="support-info">
+    <h3 >Elenco</h3>
+  </div>
+
+<!--
+  <ion-fab bottom right (click)="cadatrar()">
+    <button ion-fab color="dark"><ion-icon name="add"   ></ion-icon></button>
+  </ion-fab>-->
+
+  <ion-card *ngFor="let item of listaJogadores;let i = index">
+
+ 
+
+    <ion-list    *ngIf="item.ordem <= 6" >
+    <ion-item-sliding  >
+      <ion-item>
+        <ion-avatar item-left class="imgFoto">
+          <!--<img-loader src="{{item.imgFoto}}" useImg></img-loader>-->
+          <img src="{{item.imgFoto}}">
+
+        </ion-avatar>
+        <h2>{{item.nome}}</h2>
+        <p>Posição: {{item.posicao}}</p>
+        <p *ngIf="item.camisa" >Nº: {{item.camisa}}</p>
+        <p text-wrap *ngIf="item.isAcesso == 'N'">Acesso: {{item.codigoAcesso}}</p>
+        <p text-wrap *ngIf="item.isAcesso == 'S'">Já acessou</p>
+
+        <button ion-button round item-end color="light" (click)="abrirAlteracao(item)">
+        <ion-icon name="arrow-round-forward" color="primary"></ion-icon>
+      </button>
+
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="remover(item,i)" icon-only color="danger">  
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    
+    </ion-list> 
+
+
+
+
+<ion-list *ngIf="item.ordem > 6"  >
+    <ion-item-sliding  >
+      <ion-item color="dark">
+        <ion-avatar item-left class="imgFoto">
+          <!--<img-loader src="{{item.imgFoto}}" useImg></img-loader>-->
+          <img src="{{item.imgFoto}}">
+
+        </ion-avatar>
+        <h2>{{item.nome}}</h2>
+        <p>Posição: {{item.posicao}}</p>
+        <p *ngIf="item.camisa" >Nº: {{item.camisa}}</p>
+        <p text-wrap *ngIf="item.isAcesso == 'N'">Acesso: {{item.codigoAcesso}}</p>
+        <p text-wrap *ngIf="item.isAcesso == 'S'">Já acessou</p>
+
+        <button ion-button round item-end color="light" (click)="abrirAlteracao(item)">
+        <ion-icon name="arrow-round-forward" color="primary"></ion-icon>
+      </button>
+
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="remover(item,i)" icon-only color="danger">  
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    
+    </ion-list> 
+
+  </ion-card>
+
+
+    <ion-list *ngIf="listaJogadores?.length == 0">
+      <ion-item text-center *ngIf="listaJogadores?.length == 0">
+      <p>Nenhum jogador cadastrado !</p>
+    </ion-item>
+
+
+    <ion-item (click)="cadatrar()" *ngIf="listaJogadores?.length == 0" text-wrap>
+      <ion-icon name="ios-create" item-left color="dark"></ion-icon>
+      <p> Vamos iniciar o cadastro do elenco ? </p>
+    </ion-item>
+</ion-list>
+
+</ion-content>

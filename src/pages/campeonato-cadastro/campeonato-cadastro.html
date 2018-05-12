@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button menuToggle color="secondary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title><span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span></ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-right color="dark" (click)="visualizarAnuncio()">
+        Concluir
+      <ion-icon name="share"></ion-icon> 
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content class="lightest-bg campeonato-cadastro">
+
+  <div padding-left padding-right class="support-info">
+    <h3> Cadastro do Campeonato</h3>
+  </div>
+ 
+  <div>
+    <ion-card>
+      <ion-card-content class="profiles-bg">
+        <h3 ion-text >  <b>Banner de Divulgação</b></h3>
+        <img src="{{campeonato.imgCampeonato}}" />
+
+
+        <button ion-button icon-start block outline margin-top color="light" (click)="menuFoto(true)">
+            <ion-icon name="photos"></ion-icon>
+            Escolher Banner
+          </button>
+      </ion-card-content>
+
+    </ion-card>
+
+
+
+  </div>
+  <form (ngSubmit)="cadastrar()">
+
+<div padding-left padding-right class="support-info">
+    <h5 class="fw500">  Dados do Campeonato</h5>
+  </div>
+    
+    <ion-list padding>
+
+      
+      <ion-item>
+        <ion-label stacked>Nome do Campeonato</ion-label>
+        <ion-input [(ngModel)]="campeonato.nome" type="text" name="nome">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Valor da Inscrição</ion-label>
+        <ion-input [(ngModel)]="campeonato.valorInscricao" type="text" name="valorInscricao">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Valor Taxa Arbitragem</ion-label>
+        <ion-input [(ngModel)]="campeonato.taxaArbitagem" type="text" name="valorTaxa">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Quantidade Equipe</ion-label>
+        <ion-input [(ngModel)]="campeonato.qtdEquipe" type="text" name="valorTaxa">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Data Ínicio</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="campeonato.dataInicio" name="dataInicio"></ion-datetime>
+      </ion-item>
+
+
+      <div padding-top class="support-info">
+    <h5 class="fw500">  Contatos</h5>
+  </div>
+      <ion-item>
+        <ion-label stacked>Nome </ion-label>
+        <ion-input [(ngModel)]="campeonato.nomeContato" type="text" name="valorInscricao">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Telefone</ion-label>
+        <ion-input [(ngModel)]="campeonato.telefoneContato" type="text" name="valorTaxa">
+        </ion-input>
+      </ion-item>
+ 
+      <div padding-top class="support-info">
+    <h5 class="fw500">  Prêmios</h5>
+  </div>
+
+      <ion-item>
+        <ion-label stacked>1º Prêmio</ion-label>
+        <ion-input [(ngModel)]="campeonato.primerioPremio" type="text" name="valorTaxa">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>2º Prêmio</ion-label>
+        <ion-input [(ngModel)]="campeonato.segundoPremio" type="text" name="valorTaxa">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>3º Prêmio</ion-label>
+        <ion-input [(ngModel)]="campeonato.terceiroPremio" type="text" name="valorTaxa">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Outros Prêmios</ion-label>
+        <ion-textarea [(ngModel)]="campeonato.outrosPremios" type="text" name="valorTaxa">
+        </ion-textarea>
+      </ion-item>
+
+
+
+      <ion-row text-center>
+        <ion-col col-12 center>
+          <button ion-button type="submit" color="dark" block>     
+                          Cadastrar      
+                      </button>
+        </ion-col>
+
+
+        <ion-col col-12 center>
+          <button ion-button (click)="visualizarAnuncio()" color="dark" block>     
+                          visualizar      
+                      </button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+
+
+  </form>
+
+
+
+</ion-content>

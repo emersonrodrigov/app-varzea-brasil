@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="lightest-bg minha-conta ">
+  <ion-list>
+    <ion-item-group padding>
+      <ion-item-divider color="dark">Clube</ion-item-divider>
+          <ion-item (click)="dadosClube()">
+                Dados do Clube
+                <ion-icon name="arrow-forward" item-end></ion-icon>
+          </ion-item>
+          <ion-item (click)="dadosPartida()">
+                Dados da Partida
+                <ion-icon name="arrow-forward" item-end></ion-icon>
+          </ion-item>
+          <ion-item (click)="dadosEscudo()">
+                Escudo
+                <ion-icon name="arrow-forward" item-end></ion-icon>
+          </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+
+
+  <!--<ion-list>
+    <ion-item-group padding>
+      <ion-item-divider color="dark">Home</ion-item-divider>
+      <ion-item>
+        <ion-toggle checked="false"></ion-toggle>
+        <ion-label>
+          Visualizar Confrontos
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>-->
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "varzea-brazil-new",
+  "app_id": "621e54a1",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

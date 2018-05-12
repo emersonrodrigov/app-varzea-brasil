@@ -1,0 +1,73 @@
+
+
+.searchbar-input {
+  box-shadow: none !important;
+}
+
+ion-footer {
+  padding: 8px 16px !important;
+}
+
+.campeonato-lista{
+
+.card {
+    width: auto;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  ion-card {
+    
+    margin-top: 100px;
+    overflow: visible;
+
+    ion-card-content {
+      padding: 15px;
+      background-color: map-get($colors, primary);
+      color: #fff;
+      text-align: center;
+      // padding-bottom: 28px;
+
+      img {
+      
+        //border-radius: 50%;
+        // margin-top: -100px;
+        border: solid 4px #fff;
+        display: inline;
+        box-shadow: 0 0 28px rgba(255,255,255, .65);
+        border-width: 5px;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        margin-top: .5rem;
+        color: #fff;
+      }
+
+      h3 {
+        font-size: 1.8rem;
+        color: #fff;
+      } 
+
+    }
+
+    .ion-segment-button{
+      background-color: map-get($colors, dark);
+    }
+
+    
+button{
+       border-right-color:  #fff;
+       border-left-color: #fff;
+       border-left: 1px;
+        border-right: 1px;
+    }
+  }
+    
+button{
+       border-right-color:  #fff;
+       border-left-color: #fff;
+       border-left: 1px;
+        border-right: 1px;
+    }
+}

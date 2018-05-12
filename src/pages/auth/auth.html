@@ -1,0 +1,233 @@
+<!-- -->
+<ion-content padding class="profiles-bg">
+	<div class="auth-content">
+
+		<!-- Logo -->
+		<div padding-horizontal text-center>
+			<div class="logo">
+				<img src="assets/img/Logo-App-Branco.png">
+			</div>
+			<h2 *ngIf="false"  ion-text class="text-white" no-margin>
+				varzea<strong>Brasil</strong>
+			</h2>
+		</div>
+
+		<div padding-vertical>
+			<ion-segment [(ngModel)]="auth" color="light" (click)="clearForms()">
+				<ion-segment-button value="login" >
+					Acessar
+				</ion-segment-button>
+				<ion-segment-button value="register">
+					Cadastrar
+				</ion-segment-button>
+			</ion-segment>
+		</div>
+
+		<div [ngSwitch]="auth" no-padding>
+			<!-- Login form -->
+			<div id="loginForm" *ngSwitchCase="'login'">
+				<form [formGroup]="onLoginForm" class="list-form">
+					<ion-item>
+						<ion-label floating>
+							<ion-icon name="mail" item-start class="text-white"></ion-icon>
+							Email
+						</ion-label>
+						<ion-input type="email" formControlName="email" [(ngModel)]="user.email">></ion-input>
+					</ion-item>
+					<p ion-text color="danger" class="text-1x has-error" *ngIf="onLoginForm.get('email').touched && onLoginForm.get('email').hasError('required')">Obrigatório</p>
+
+					<ion-item>
+						<ion-label floating>
+							<ion-icon name="lock" item-start class="text-white"></ion-icon>
+							Password
+						</ion-label>
+						<ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+					</ion-item>
+					<p ion-text color="danger" class="text-1x has-error" *ngIf="onLoginForm.get('password').touched && onLoginForm.get('password').hasError('required')">Obrigatório</p>
+				</form>
+
+				<p text-right ion-text color="light" tappable (click)="forgotPass()"><strong>Esqueceu senha?</strong></p>
+
+				<div>
+					<button ion-button icon-start block outline color="light" (click)="login()" [disabled]="!onLoginForm.valid">
+						<ion-icon name="log-in"></ion-icon>
+						ACESSAR
+					</button>
+
+					<p text-center ion-text color="light" *ngIf="false">Or Sign in with:</p>
+
+					<ion-grid class="btn-group" *ngIf="false">
+						<ion-row>
+							<button ion-button icon-only block class="btn-facebook col col-4">
+								<ion-icon name="logo-facebook"></ion-icon>
+							</button>
+							<button ion-button icon-only block class="btn-twitter col col-4">
+								<ion-icon name="logo-twitter"></ion-icon>
+							</button>
+							<button ion-button icon-only block class="btn-gplus col col-4">
+								<ion-icon name="logo-googleplus"></ion-icon>
+							</button>
+						</ion-row>
+					</ion-grid>
+
+				</div>
+			</div>
+
+			<div id="registerForm" *ngSwitchCase="'register'">
+
+				<ion-segment [(ngModel)]="tipoCadastro" color="light"  (click)="clearForms()" *ngIf="false"> 
+					<ion-segment-button value="clube">
+						Clube
+					</ion-segment-button>
+					<ion-segment-button value="jogador">
+						Jogador
+					</ion-segment-button>
+					<ion-segment-button value="torcedor">
+						Torcedor
+					</ion-segment-button>
+				</ion-segment>
+				<div [ngSwitch]="tipoCadastro">
+					<!-- Register form  Clube-->
+					<form [formGroup]="onRegisterClubeForm" class="list-form" *ngSwitchCase="'clube'">
+
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="person" item-start class="text-white"></ion-icon>
+								Nome do Clube
+							</ion-label>
+							<ion-input type="text" formControlName="nome" [(ngModel)]="clube.nome"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterClubeForm.get('nome').touched && onRegisterClubeForm.get('nome').hasError('required')">Obrigatório</p>
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="mail" item-start class="text-white"></ion-icon>
+								Email
+							</ion-label>
+							<ion-input type="email" formControlName="email" [(ngModel)]="user.email"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterClubeForm.get('email').touched && onRegisterClubeForm.get('email').hasError('required')">Obrigatório</p>
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="lock" item-start class="text-white"></ion-icon>
+								Password
+							</ion-label>
+							<ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterClubeForm.get('password').touched && onRegisterClubeForm.get('password').hasError('required')">Obrigatório</p>
+				
+							<button margin-top  ion-button block outline color="light" (click)="register()" [disabled]="!onRegisterClubeForm.valid">
+		        CADASTRAR
+		       </button>
+					</form>
+
+
+
+					<!-- Register form  Jogador-->
+					<form [formGroup]="onRegisterJogadorForm" class="list-form" *ngSwitchCase="'jogador'">
+
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="person" item-start class="text-white"></ion-icon>
+								Nome do Jogador
+							</ion-label>
+							<ion-input type="text" formControlName="nome" [(ngModel)]="jogador.nome"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterJogadorForm.get('nome').touched && onRegisterJogadorForm.get('nome').hasError('required')">Obrigatório</p>
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="mail" item-start class="text-white"></ion-icon>
+								Email
+							</ion-label>
+							<ion-input type="email" formControlName="email" [(ngModel)]="user.email"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterJogadorForm.get('email').touched && onRegisterJogadorForm.get('email').hasError('required')">Obrigatório</p>
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="lock" item-start class="text-white"></ion-icon>
+								Password
+							</ion-label>
+							<ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterJogadorForm.get('password').touched && onRegisterJogadorForm.get('password').hasError('required')">Obrigatório</p>
+				
+				
+				<button margin-top  ion-button block outline color="light" (click)="register()" [disabled]="!onRegisterJogadorForm.valid">
+		        CADASTRAR
+		       </button>
+					</form>
+
+
+					<!-- Register form  Torcedor-->
+					<form [formGroup]="onRegisterTorcedorForm" class="list-form" *ngSwitchCase="'torcedor'">
+
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="person" item-start class="text-white"></ion-icon>
+								Nome do Torcedor
+							</ion-label>
+							<ion-input type="text" formControlName="nome" [(ngModel)]="torcedor.nome"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterTorcedorForm.get('nome').touched && onRegisterTorcedorForm.get('nome').hasError('required')">Obrigatório</p>
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="mail" item-start class="text-white"></ion-icon>
+								Email
+							</ion-label>
+							<ion-input type="email" formControlName="email" [(ngModel)]="user.email"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterTorcedorForm.get('email').touched && onRegisterTorcedorForm.get('email').hasError('required')">Obrigatório</p>
+
+						<ion-item>
+							<ion-label floating>
+								<ion-icon name="lock" item-start class="text-white"></ion-icon>
+								Password
+							</ion-label>
+							<ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+						</ion-item>
+						<p ion-text color="danger" class="text-1x has-error" *ngIf="onRegisterTorcedorForm.get('password').touched && onRegisterTorcedorForm.get('password').hasError('required')">Obrigatório</p>
+					
+						<button margin-top  ion-button block outline color="light" (click)="register()" [disabled]="!onRegisterTorcedorForm.valid">
+		        CADASTRAR
+		       </button>
+					
+					</form>
+
+
+
+				</div>
+				<div margin-top *ngIf="false" >
+					<button ion-button block outline color="light" (click)="register()" [disabled]="!onRegisterClubeForm.valid || !onRegisterTorcedorForm.valid || !onRegisterJogadorForm">
+		        CADASTRAR
+		      </button>
+ 
+					<p text-center ion-text color="light" *ngIf="false">Or Sign Up with:</p>
+
+					<ion-grid class="btn-group" *ngIf="false">
+						<ion-row>
+							<button ion-button icon-only block class="btn-facebook col col-4">
+		            <ion-icon name="logo-facebook"></ion-icon>
+		          </button>
+							<button ion-button icon-only block class="btn-twitter col col-4">
+		            <ion-icon name="logo-twitter"></ion-icon>
+		          </button>
+							<button ion-button icon-only block class="btn-gplus col col-4">
+		            <ion-icon name="logo-googleplus"></ion-icon>
+		          </button>
+						</ion-row>
+					</ion-grid>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+</ion-content>

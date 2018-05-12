@@ -1,0 +1,148 @@
+<ion-menu [content]="content" class="menu-bg" (ionOpen)="carregarDados()">
+
+  <ion-header>
+    <ion-toolbar class="user-profile profiles-bg">
+
+      <div class="user-profile" >
+        <ion-list no-margin>
+          <ion-item >
+           <p></p>
+            <ion-thumbnail item-left>
+              <img class="img-profile"  *ngIf="this.clube?.imgEscudo"   [(src)]="this.clube.imgEscudo">
+
+            </ion-thumbnail>
+
+            <h2 ion-text class="text-white fw700 text-15x">
+              {{clube?.nome}} 
+            </h2>
+            <p ion-text color="light" *ngIf="clube?.flgMandante == 1"  >Mandante</p>
+            <p ion-text color="light" *ngIf="clube?.flgMandante == 2"  >Visitante</p>
+            <p ion-text color="light" *ngIf="clube?.flgMandante == 3"  >Mandante e Visitante</p>
+            
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 0">Dia de Jogo: Domingo</p>
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 1">Dia de Jogo: Segunda</p>
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 2">Dia de Jogo: Terça</p>
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 3">Dia de Jogo: Quarta</p>
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 4">Dia de Jogo: Quinta</p>
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 5">Dia de Jogo: Sexta</p>
+            <p ion-text color="light" *ngIf="clube?.diaJogo == 6">Dia de Jogo: Sábado</p>
+ 
+            <!--<ion-badge color="light" class="text-primary" *ngIf="clube" >
+            	<ion-icon name="home"></ion-icon> Clube
+            </ion-badge>
+            <ion-badge color="light" class="text-primary" *ngIf="jogador" >
+            	<ion-icon name="cash"></ion-icon> Jogador
+            </ion-badge>
+            <ion-badge color="light" class="text-primary" *ngIf="torcedor">
+            	<ion-icon name="cash"></ion-icon> Torcedor
+            </ion-badge>-->
+
+          </ion-item>
+        </ion-list>
+
+	      <ion-grid no-padding>
+	        <ion-row class="other-data">
+	          <ion-col text-center class="column">
+		          <button ion-button icon-start small full menuClose no-margin color="dark" (click)="editarConta()">
+		            <ion-icon name="contact"></ion-icon>
+		            Minha Conta
+		          </button>
+	          </ion-col>
+	          <ion-col text-center class="column">
+		          <button ion-button icon-start small full menuClose no-margin color="dark" (click)="logout()">
+		            <ion-icon name="log-out"></ion-icon>
+		            Sair
+		          </button>
+	          </ion-col>
+	        </ion-row>
+	      </ion-grid>
+
+      </div>
+
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+    <ion-list>
+      <button menuClose ion-item (click)="openPage(homeItem)">
+        <ion-icon item-left name="md-home"></ion-icon>
+        Home
+      </button>
+       <!--<button menuClose ion-item (click)="openPage(campeonatoItem)">
+        <ion-icon item-left name="md-trophy"></ion-icon>
+        Campeonatos
+      </button>-->
+      <!--<button menuClose ion-item (click)="openPage(initialItem)">
+        <ion-icon item-left name="browsers"></ion-icon>
+        Initial <small>(introduction slides)</small>
+      </button>
+      <button menuClose ion-item (click)="openPage(messagesItem)">
+        <ion-icon item-left name="mail"></ion-icon>
+        Messages
+      </button>
+      <button menuClose ion-item (click)="openPage(invoicesItem)">
+        <ion-icon item-left name="list-box"></ion-icon>
+        Invoices
+      </button>-->
+    </ion-list>
+
+
+
+    <ion-list>
+      <ion-list-header no-margin class="dark-bg">
+        <span ion-text color="light" class="fw500">Seu Clube</span>
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let menuItem of timeMenuItems" (click)="openPage(menuItem)">
+        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
+        {{menuItem.title}}
+      </button>
+    </ion-list>
+
+     <ion-list>
+      <ion-list-header no-margin  class="dark-bg">
+        <span ion-text color="light" class="fw500">Marcar Jogos</span>
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let menuItem of convitesMenuItems" (click)="openPage(menuItem)">
+        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
+        {{menuItem.title}}
+         
+      </button>
+    </ion-list>
+
+    <!--<ion-list>
+      <ion-list-header no-margin>
+        <span ion-text color="dark" class="fw500">Realty</span>
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let menuItem of appMenuItems" (click)="openPage(menuItem)">
+        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
+        {{menuItem.title}}
+      </button>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header no-margin>
+        <span ion-text color="dark" class="fw500">Your Property</span>
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let menuItem of yourPropertyMenuItems" (click)="openPage(menuItem)">
+        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
+        {{menuItem.title}}
+      </button>
+    </ion-list> 
+
+    <ion-list>
+      <ion-list-header no-margin>
+        <span ion-text color="dark" class="fw500">Help</span>
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let menuItem of helpMenuItems" (click)="openPage(menuItem)">
+        <ion-icon item-left [name]="menuItem.icon"></ion-icon>
+        {{menuItem.title}}
+      </button>
+    </ion-list>-->
+
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

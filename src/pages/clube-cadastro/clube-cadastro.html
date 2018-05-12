@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start *ngIf="!this.isLogin">
+      <button ion-button menuToggle color="primary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+
+    <ion-title><span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span></ion-title>
+
+
+    <ion-buttons end>
+      <button ion-button icon-right color="primary" (click)="proximaEtapa()" [disabled]="!formCadastro.valid" *ngIf="!isMinhaConta">
+        Próximo
+      <ion-icon name="arrow-forward"></ion-icon> 
+    </button>
+    </ion-buttons>
+
+    <ion-buttons end *ngIf="isMinhaConta">
+      <button ion-button icon-right color="primary" (click)="alterar()" [disabled]="!formCadastro.valid">
+        Alterar
+      <ion-icon name="done-all"></ion-icon> 
+    </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content class="clubecadastro lightest-bg">
+
+  <div padding-left padding-right class="support-info">
+    <h3 *ngIf="!this.isMenu && !this.isMinhaConta">Cadastro do Clube</h3>
+    <h3 *ngIf="this.isMenu || this.isMinhaConta">Clube</h3>
+  </div>
+  <ion-card class="primary-bg" *ngIf="!this.isMenu  && !this.isMinhaConta">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Faça o cadastro do seu <b>Clube</b> e tenha acesso a maior rede de futebol amador do País.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+
+      <form [formGroup]="formCadastro" class="list-form">
+        <ion-list margin-bottom>
+
+          <h5 ion-text color="dark" margin-bottom class="fw500">Dados do Clube<span ion-text class="fw300"></span></h5>
+
+          <ion-item>
+            <ion-label stacked>Nome do Time</ion-label>
+            <ion-input [(ngModel)]="time.nome" color="dark-ionic" type="text" name="nome" formControlName="nome">
+            </ion-input>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.nome.valid && formCadastro.controls.nome.touched">Obrigatório</p>
+
+
+
+          <ion-item>
+            <ion-label stacked>Data de Fundação</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="time.dataFundacao" name="dataFundacao" formControlName="dataFundacao"></ion-datetime>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.dataFundacao.valid && formCadastro.controls.dataFundacao.touched">Obrigatório</p>
+
+
+          <ion-item>
+            <ion-label stacked>Categoria </ion-label>
+            <ion-select [(ngModel)]="time.categoria" name="categoria" formControlName="categoria" okText="Selecionar" cancelText="Cancelar"
+              [class.invalid]="!formCadastro.controls.categoria.valid && formCadastro.controls.categoria.dirty">
+
+              <ion-option value="3">Até 16 Anos</ion-option>
+              <ion-option value="4">Até 19 Anos</ion-option>
+              <ion-option value="2">Sport</ion-option>
+              <ion-option value="1">Veterano</ion-option>
+            </ion-select>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.categoria.valid && formCadastro.controls.categoria.touched">Obrigatório</p>
+
+
+          <ion-item [class.erro]='!formCadastro.controls.telefone1.valid && formCadastro.controls.telefone1.dirty'>
+            <ion-label stacked>Celular(WhatsApp)</ion-label>
+            <ion-input [brmasker]="{phone: true}" [(ngModel)]="time.telefone1" type="tel" name="telefone1" formControlName="telefone1">
+            </ion-input>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.telefone1.valid && formCadastro.controls.telefone1.touched">Obrigatório</p>
+
+
+          <ion-item>
+            <ion-label stacked>Celular(Outro)</ion-label>
+            <ion-input type="tel" [brmasker]="{phone: true}" [(ngModel)]="time.telefone2" name="telefone2" formControlName="telefone2">
+            </ion-input>
+
+
+          </ion-item>
+ 
+
+
+          <ion-card class="primary-bg" no-padding margin-top>
+            <ion-card-content>
+              <p class="fw700 text-white">Dados de Endereço</p>
+              <p class="text-white" text-justify ion-text>
+                Dados de endereço são obrigatórios, para facilitar a busca de novos confrontos, informar campeonatos de sua região entre
+                outras funcionalidades.
+            </ion-card-content>
+          </ion-card>
+
+
+
+
+          <ion-item [class.error]='!formCadastro.controls.cep.valid && formCadastro.controls.cep.dirty' class="">
+            <ion-label stacked>CEP Time(Obrigatório)</ion-label>
+            <ion-input [(ngModel)]="time.cep" name="cep" formControlName="cep" type="tel" (keyup)="buscarEndereco()">
+            </ion-input>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.cep.valid && formCadastro.controls.cep.touched">Obrigatório</p>
+
+
+          <ion-item *ngIf="isEncontrouCep" text-wrap   class="text-black">
+            <ion-label stacked>Bairro </ion-label>
+            <ion-input dark text-wrap [(ngModel)]="time.bairro" type="text" name="bairro" formControlName="bairro" class=˜text-black˜>
+            </ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="isEncontrouCep"  class="text-black">
+            <ion-label stacked>Cidade </ion-label>
+            <ion-input [(ngModel)]="time.cidade" type="text" name="cidade" formControlName="cidade" class=˜text-black˜>
+            </ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="isEncontrouCep"  class="text-black">
+            <ion-label stacked>UF </ion-label>
+            <ion-input [(ngModel)]="time.estado" type="text" name="estado" formControlName="estado" class=˜text-black˜>
+            </ion-input>
+          </ion-item>
+      
+
+
+          <ion-item *ngIf="isEncontrouCep">
+            <ion-label stacked>Região (Obrigatório)</ion-label>
+            <ion-select [(ngModel)]="time.regiao" name="regiao" formControlName="regiao" okText="Selecionar" cancelText="Cancelar" [class.invalid]="!formCadastro.controls.regiao.valid && formCadastro.controls.regiao.dirty">
+              <ion-option value="Zona Sul" checked="true">Zona Sul</ion-option>
+              <ion-option value="Zona Norte">Zona Norte</ion-option>
+              <ion-option value="Zona Leste">Zona Leste</ion-option>
+              <ion-option value="Zona Oeste">Zona Oeste</ion-option>
+              <ion-option value="Centro">Centro</ion-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-list>
+      </form>
+    </ion-card-content>
+
+    <!--<ion-row no-padding>
+      <ion-col col-12>
+        <button ion-button type="submit" color="dark" block (click)="alterar()" [disabled]="!formCadastro.valid">     
+                          Salvar      
+                        </button>
+      </ion-col>
+    </ion-row>-->
+
+  </ion-card>
+
+</ion-content>

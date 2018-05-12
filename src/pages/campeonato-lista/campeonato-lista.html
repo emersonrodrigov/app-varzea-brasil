@@ -1,0 +1,212 @@
+<ion-header>
+  <ion-navbar>
+
+
+    <ion-buttons start>
+      <button ion-button menuToggle color="primary">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+
+    <ion-title><span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span></ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cadastrar()" color="primary">         
+                <ion-icon name="ios-create-outline"></ion-icon>          
+          </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+  <ion-toolbar class="cinza-bg">
+    <ion-searchbar (ionInput)="getItems($event)" dark color="secondary" placeholder="Nome Campeonato"></ion-searchbar>
+  </ion-toolbar>
+
+
+</ion-header>
+
+
+<ion-content class="lightest-bg">
+
+  <div padding>
+    <ion-segment [(ngModel)]="aba" color="primary">
+      <ion-segment-button value="aberto">
+        Em aberto
+      </ion-segment-button>
+      <ion-segment-button value="andamento">
+        Em Andamento
+      </ion-segment-button>
+      <ion-segment-button value="finalizado">
+        Finalizados
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+
+
+
+  <div [ngSwitch]="aba">
+
+    <div *ngSwitchCase="'aberto'">
+
+
+
+      <ion-card margin-bottom *ngFor="let campeonato of listaCampeonatosAbertos">
+        <div class="card-img-wrap">
+          <!--<ion-fab bottom right edge>
+            <button ion-fab mini (click)="favorite(property)">
+                <ion-icon name="information"></ion-icon>
+              </button>
+          </ion-fab>-->
+          <img src="{{campeonato.imgCampeonato}}" tappable (click)="visualizarAnuncio(campeonato)" *ngIf="campeonato.imgCampeonato">
+          <span ion-text class="card-img-price fw700 text-black">
+             <p> <b>Inscrição:</b> {{campeonato.valorInscricao}} </p>
+             <p> <b>Arbitragem: </b>{{campeonato.taxaArbitagem}} <sup ion-text color="dark" class="fw500">/Por Jogo</sup></p>  
+           </span>
+
+
+          <span ion-text class="card-img-status aberto fw300 text-white">
+              Aberto
+            </span>
+        </div>
+        <ion-grid no-margin class="lightest-bg">
+          <ion-row >
+            <ion-col text-center>
+              <b>{{campeonato.nome}}</b>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+        <ion-card-content no-margin no-padding>
+
+
+
+
+          <!--<ion-card-title ion-text color="dark" tappable (click)="openPropertyDetail(property)" no-padding>
+            {{campeonato.nome}}
+          </ion-card-title>-->
+
+          <ion-grid padding-horizontal>
+
+            <ion-row text-nowrap >
+              <ion-col text-left col-1>
+                <ion-icon name="ios-calendar-outline"></ion-icon>
+              </ion-col>
+              <ion-col text-left col-5>
+                Data Inicio:
+              </ion-col>
+              <ion-col text-right col-6>
+                {{campeonato.dataInicio | date: 'dd/MM/yyyy'}}
+              </ion-col>
+
+            </ion-row>
+
+            <ion-row text-nowrap >
+              <ion-col text-left col-1>
+                <ion-icon name="ios-trophy-outline"></ion-icon>
+              </ion-col>
+              <ion-col text-left col-5>
+                1º Prêmio:
+              </ion-col>
+              <ion-col text-right col-6>
+                {{campeonato.primerioPremio}}
+              </ion-col>
+
+            </ion-row>
+
+            <ion-row text-nowrap >
+              <ion-col text-left col-1>
+                <ion-icon name="ios-trophy-outline"></ion-icon>
+              </ion-col>
+              <ion-col text-left col-5>
+                2º Prêmio:
+              </ion-col>
+              <ion-col text-right col-6>
+                {{campeonato.segundoPremio}}
+              </ion-col>
+
+            </ion-row>
+
+            <ion-row text-nowrap  >
+              <ion-col text-left col-1>
+                <ion-icon name="ios-trophy-outline"></ion-icon>
+              </ion-col>
+              <ion-col text-left col-5>
+                3º Prêmio:
+              </ion-col>
+              <ion-col text-right col-6>
+                {{campeonato.terceiroPremio}}
+              </ion-col>
+
+            </ion-row>
+
+            <ion-row   >
+              <ion-col text-left col-1 >
+                <ion-icon name="ios-trophy-outline"></ion-icon>
+              </ion-col>
+              <ion-col text-left col-5 text-nowrap>
+                Outros Prêmios:
+              </ion-col>
+              <ion-col text-right col-6>
+                {{campeonato.outrosPremios}}
+              </ion-col>
+
+            </ion-row>
+
+
+
+
+
+          </ion-grid>
+
+        </ion-card-content>
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col col-4 no-padding>
+              <button ion-button full small no-margin icon-left color="primary" (click)="participarCampeonato(campeonato)">
+            <ion-icon name="log-in"></ion-icon>
+            Participar
+          </button>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button full small no-margin icon-left color="primary" (click)="visualizarAnuncio(campeonato)">
+            <ion-icon name="information"></ion-icon>
+            Informações
+          </button>
+            </ion-col>
+            <ion-col col-4 no-padding>
+              <button ion-button full small no-margin icon-left color="primary" (click)="verClubesInscritos(campeonato)">
+            <ion-icon name="people"></ion-icon>
+            Times
+        </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-card>
+    </div>
+
+
+
+
+
+
+    <div *ngSwitchCase="'andamento'">
+
+
+    </div>
+
+
+
+
+
+
+    <div *ngSwitchCase="'finalizado'">
+
+
+    </div>
+
+
+  </div>
+</ion-content>

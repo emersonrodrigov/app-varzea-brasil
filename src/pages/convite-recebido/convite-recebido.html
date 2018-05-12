@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content class="lightest-bg">
+
+
+  <div padding-left padding-right class="support-info">
+    <h3>Convites Recebidos</h3>
+  </div>
+
+
+<ion-card class="primary-bg" *ngIf="!isExisteConvite">
+    <ion-card-content>
+      <p class="text-white" text-justify ion-text>Clube não recebeu nenhum convite para jogo. 
+        Acesse o menu <b> Encontrar Time </b> e marque seu jogo. </p>
+      <ion-grid no-padding>
+        <ion-row center>
+          <ion-col col-12 text-center>
+            <button ion-button color="dark" class="tet-white" (click)="marcarJogos()" small>Acesse Já.</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+
+
+    <div *ngFor="let item of listaConvitesRecebidos; let i = index">
+      <div  *ngIf="item.statusConvite == 1" >
+           <ion-col col-12 *ngIf="i==0 || item.dataPartidaConvite != listaConvitesRecebidos[i-1].dataPartidaConvite" no-padding>
+            <h6 no-padding ion-text text-center color="dark" class="main-styled-border-confronto">{{item.dataPartidaConvite  | date: "dd/MM/yyyy"}}</h6>
+          </ion-col>
+
+        <ion-card >
+
+
+          <ion-item>
+            <ion-avatar item-left>
+              <!--<img-loader src="{{item.imgFoto}}" useImg></img-loader>-->
+              <img src="{{item.imgEscudo}}">
+
+            </ion-avatar>
+            <h3 ion-text class="text-dark">{{item.nome}}</h3>
+            <p *ngIf="item.flgMandante == 1">Mandante</p>
+            <p *ngIf="item.flgMandante == 2"> Visitante</p>
+            <p *ngIf="item.flgMandante == 3"> Madante e Visitante</p>
+            <p *ngIf="item.horaInicioJogo && item.horaFimJogo">Horário: {{item.horaInicioJogo}} ás {{item.horaFimJogo}}</p>
+            <p *ngIf="item?.flgMandante != 2">Campo: {{item?.campo.nome}}</p>
+
+             <p *ngIf="item?.flgMandante != 2 && item?.valorAmistoso">Amistoso: {{item?.valorAmistoso}}</p>
+             <p *ngIf="item?.flgMandante != 2 && item?.valorFestival">Festival: {{item?.valorFestival}}</p>
+            
+            
+          </ion-item>
+
+ <ion-grid no-padding *ngIf="item.motivoCancelamento" >
+              <ion-row justify-content-center>
+                  <ion-col col-12 class="text-danger" text-center>
+                      <span ion-text color="danger" class="fw700" >Motivo: </span><span ion-text color="danger" class="fw300">{{item.motivoCancelamento}}</span>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+
+
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col col-6 no-padding>
+                <button ion-button full small no-margin icon-left color="primary" (click)="aceitarConfronto(item, i)">
+          <ion-icon name="checkmark" ></ion-icon>
+          Aceitar
+        </button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button full small no-margin icon-left color="danger" (click)="recusarConfronto(item)">
+          <ion-icon name="close"></ion-icon>
+          Recusar
+        </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </div>
+    </div>
+
+
+  </ion-list>
+
+</ion-content>

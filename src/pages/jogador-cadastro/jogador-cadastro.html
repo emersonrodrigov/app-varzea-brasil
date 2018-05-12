@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" color="dark"></ion-icon>
+    </button>
+    <ion-title>
+      <span ion-text color="primary" class="fw300">varzea</span><span ion-text color="dark" class="fw700">Brasil</span>
+    </ion-title>
+
+    <ion-buttons end *ngIf="false" >
+      <button ion-button icon-only color="secondary" (click)="menuFoto()">         
+                <ion-icon name="camera-outline"></ion-icon>          
+          </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="lightest-bg jogador">
+
+  <div padding-left padding-right class="support-info">
+    <h3>Cadastro do Jogador</h3>
+  </div>
+
+
+  <form [formGroup]="formCadastro" (ngSubmit)="cadastrar()">
+
+
+
+
+    <ion-card class="card-foto">
+      <ion-card-content class="profiles-bg">
+        <img [src]="jogador.imgFoto" *ngIf="jogador.imgFoto" class="imgFoto" />
+        <!--<h2 class="fw500">{{broker.name}}</h2>
+			<h3 ion-text color="light">{{broker.title}}</h3>-->
+
+        <button type="button" ion-button icon-start block outline margin-top color="light" (click)="menuFoto()">
+            <ion-icon name="photos"></ion-icon>
+            Escolher Foto
+          </button>
+      </ion-card-content>
+
+
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-list no-margin>
+
+          <ion-item>
+            <ion-label stacked>Nome ou Apelido (Obrigatório)</ion-label>
+            <ion-input [(ngModel)]="jogador.nome" type="text" name="nome" formControlName="nome">
+            </ion-input>
+          </ion-item>
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.nome.valid && formCadastro.controls.nome.touched">Obrigatório</p>
+
+
+          <ion-item *ngIf="isCampo || isSociety">
+            <ion-label stacked>Posição </ion-label>
+            <ion-select   [(ngModel)]="jogador.posicao" name="posicao" formControlName="posicao" okText="Selecionar" cancelText="Cancelar">
+              <ion-option value="Goleiro" checked="true">Goleiro</ion-option>
+              <ion-option value="Zagueiro">Zagueiro</ion-option>
+              <ion-option value="Lateral">Lateral</ion-option>
+              <ion-option value="Volante">Volante</ion-option>
+              <ion-option value="Meia">Meia</ion-option>
+              <ion-option value="Atacante">Atacante</ion-option>
+              <ion-option value="Técnico">Técnico</ion-option>
+            </ion-select>
+        
+          </ion-item>  
+          <ion-item *ngIf="isFutsal" >
+            <ion-label stacked>Posição </ion-label>
+          <ion-select [(ngModel)]="jogador.posicao" name="posicao" formControlName="posicao" okText="Selecionar" cancelText="Cancelar">
+              <ion-option value="Goleiro" checked="true">Goleiro</ion-option>
+              <ion-option value="Fixo">Fixo</ion-option>
+              <ion-option value="Ala">Ala</ion-option>
+              <ion-option value="Pivô">Pivô</ion-option>
+              <ion-option value="Técnico">Técnico</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <p ion-text color="danger" class="text-1x has-error" *ngIf="!formCadastro.controls.posicao.valid && formCadastro.controls.posicao.touched">Obrigatório</p>
+
+
+
+          <ion-item *ngIf="jogador.posicao != 'Técnico'" >
+            <ion-label stacked>Número da Camisa (opcional)</ion-label>
+            <ion-input type="tel" name="camisa" formControlName="camisa" maxlength="4" [(ngModel)]="jogador.camisa"></ion-input>
+          </ion-item>
+  
+
+        </ion-list>
+      </ion-card-content>
+     
+            
+
+               <ion-row no-padding>
+                  <ion-col col-12>
+                      <button ion-button type="submit" color="dark" block   [disabled]="!formCadastro.valid">     
+                        Salvar      
+                      </button> 
+                  </ion-col>
+              </ion-row>
+       
+    </ion-card>
+  </form>
+
+
+
+</ion-content>
